@@ -1,0 +1,101 @@
+{
+  "theme_archetype": {
+    "domain": "Game / Playful",
+    "theme": "Light",
+    "archetype": "Archetype 4: Swiss & High-Contrast (Bauhaus Interpretation)",
+    "rationale": "Breaking the generic purple/mint gradients typical of casual web games. Going for a tactile, high-tension 'Bauhaus digital' aesthetic. Sharp geometry, stark ivory background, thick black grids, and pure primary colors to invoke physical nostalgia and architectural precision."
+  },
+  "colors": {
+    "palette": {
+      "background": "#F4F4EC",
+      "surface": "#FFFFFF",
+      "text_primary": "#111111",
+      "text_secondary": "#555555",
+      "primary_red": "#FF3333",
+      "primary_blue": "#0033CC",
+      "accent_yellow": "#FFCC00",
+      "border": "#111111"
+    },
+    "rules": {
+      "contrast": "Strict high contrast. No subtle grays or drop shadows. Shadows must be solid #111111.",
+      "hover_states": "Hovering interactive elements should shift to accent_yellow (#FFCC00) or invert to pure black.",
+      "player_colors": "Player 1 (X) MUST ONLY use primary_red (#FF3333). Player 2 (O) MUST ONLY use primary_blue (#0033CC). Never mix these."
+    }
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Cabinet Grotesk, sans-serif",
+      "body_and_scores": "Azeret Mono, monospace",
+      "import_urls": [
+        "https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900&display=swap",
+        "https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;700;900&display=swap"
+      ]
+    },
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-black uppercase tracking-tighter",
+      "h2": "text-3xl md:text-4xl font-bold tracking-tight",
+      "scores": "text-2xl md:text-3xl font-bold tracking-tighter",
+      "labels": "text-sm md:text-base font-bold uppercase tracking-[0.2em]"
+    },
+    "rules": "Cabinet Grotesk for dramatic, oversized announcements (e.g., 'X WINS'). Azeret Mono for all functional data (scores, inputs, buttons, history) to feel like a raw digital machine."
+  },
+  "layout_and_spacing": {
+    "strategy": "Asymmetric, structural grid. Title on top-left, game board anchored center, scores and history pushed to right or bottom in rigid blocks.",
+    "board_container": "Use grid-cols-3 with gap-2. The board container MUST have bg-[#111111] (black) so the gaps act as the thick monolithic 8px borders of the Tic Tac Toe board. Each cell has bg-[#F4F4EC].",
+    "general_spacing": "Generous spacing (p-8 to p-12). Containers with borders must use internal padding p-6 to avoid collision."
+  },
+  "components": {
+    "game_board_cell": {
+      "base": "w-24 h-24 sm:w-32 sm:h-32 bg-[#F4F4EC] flex items-center justify-center cursor-pointer transition-colors duration-150 relative",
+      "hover": "hover:bg-[#FFCC00]",
+      "x_mark": "SVG line cross. stroke-[#FF3333], strokeWidth='12', strokeLinecap='square'.",
+      "o_mark": "SVG perfect circle. stroke-[#0033CC], strokeWidth='12', fill='transparent'.",
+      "testing": "data-testid='board-cell-{index}'"
+    },
+    "buttons": {
+      "base": "font-mono text-sm uppercase font-bold px-6 py-3 bg-white text-[#111111] border-4 border-[#111111] shadow-[6px_6px_0px_#111111] transition-transform duration-100",
+      "active": "active:translate-x-[6px] active:translate-y-[6px] active:shadow-none",
+      "hover": "hover:bg-[#FFCC00]",
+      "testing": "data-testid='{action}-button'"
+    },
+    "score_panel": {
+      "style": "Neo-brutalist card. border-4 border-[#111111] bg-white p-6 shadow-[8px_8px_0px_#111111]",
+      "layout": "Flex container with monospace numbers. Player 1 name/score in #FF3333, Player 2 in #0033CC.",
+      "testing": "data-testid='score-panel'"
+    },
+    "inputs": {
+      "style": "border-b-4 border-[#111111] bg-transparent text-xl font-mono focus:outline-none focus:border-[#FFCC00] focus:bg-white p-2 transition-colors placeholder:text-[#555555] w-full",
+      "testing": "data-testid='player-{index}-input'"
+    },
+    "leaderboard": {
+      "style": "border-4 border-[#111111] bg-white mt-8 font-mono text-sm max-h-[200px] overflow-y-auto shadow-[6px_6px_0px_#111111]",
+      "testing": "data-testid='match-history-list'"
+    },
+    "mode_selector": {
+      "style": "Flex container, toggle buttons sharing a thick black border. Active state: bg-[#111111] text-white. Inactive: bg-white text-[#111111].",
+      "testing": "data-testid='mode-selector'"
+    }
+  },
+  "motion_and_interaction": {
+    "transitions": "Keep them snappy and mechanical. 100ms-150ms max. No 'eased' floating animations.",
+    "win_animation": "Draw a thick solid #111111 SVG line over the winning cells. The winning cells should pulse or invert colors rapidly.",
+    "draw_animation": "Board shakes horizontally. Cells flash #FFCC00.",
+    "accessibility": "MUST respect prefers-reduced-motion. Disable shakes and rapid pulsing if enabled."
+  },
+  "media_and_assets": {
+    "background_texture": {
+      "url": "https://images.unsplash.com/photo-1604147706283-d7119b5b822c?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNTl8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHBhcGVyJTIwdGV4dHVyZXxlbnwwfHx8fDE3ODI0NzU1MTZ8MA&ixlib=rb-4.1.0&q=85",
+      "usage": "Overlay entire app with this texture: fixed inset-0, pointer-events-none, mix-blend-multiply, opacity-40. It adds tactile 'paper/poster' grit to the Bauhaus geometry."
+    },
+    "icons": "Use lucide-react for UI icons (settings, reset), but set strokeWidth to 3 to match the heavy structural feel."
+  },
+  "instructions_to_main_agent": [
+    "Inject the provided Google Fonts/Fontshare URLs into the main index.html or global CSS.",
+    "Build the layout completely avoiding generic centered cards. Position the title massive on the top-left, game board anchored in the center, and scores/history on the right or bottom in rigid blocks.",
+    "Do NOT use Shadcn Card components for the board or score panels. Use pure HTML/Tailwind with thick borders (border-4 border-[#111111]) and hard shadows (shadow-[8px_8px_0px_#111111]).",
+    "The game board MUST be constructed using a CSS grid (grid-cols-3) with a black container background and gap-2 to create the thick monolithic grid lines. DO NOT draw individual borders on cells.",
+    "Implement testing attributes rigorously exactly as specified: data-testid='board-cell-0' to 'board-cell-8', data-testid='game-status-message', data-testid='mode-selector'.",
+    "Do not use generic 'X' and 'O' text characters for the game pieces. Use SVGs with strokeWidth='12' and square caps to match the geometric aesthetic.",
+    "Ensure contrast rules are met, especially over the textured background. Use solid colors."
+  ]
+}

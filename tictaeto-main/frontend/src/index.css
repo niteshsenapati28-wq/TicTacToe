@@ -1,0 +1,241 @@
+@import url("https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@800,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@400;500;700;900&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --bg: #f4f4ec;
+    --surface: #ffffff;
+    --ink: #111111;
+    --ink-soft: #555555;
+    --red: #ff3333;
+    --blue: #0033cc;
+    --yellow: #ffcc00;
+}
+
+html,
+body {
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: "Azeret Mono", ui-monospace, SFMono-Regular, monospace;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+    font-family: "Cabinet Grotesk", "Azeret Mono", sans-serif;
+    letter-spacing: -0.04em;
+}
+
+.font-mono-ui {
+    font-family: "Azeret Mono", ui-monospace, monospace;
+}
+
+/* selection */
+::selection {
+    background: var(--yellow);
+    color: var(--ink);
+}
+
+/* paper texture overlay */
+.paper-texture {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("https://images.unsplash.com/photo-1604147706283-d7119b5b822c?crop=entropy&cs=srgb&fm=jpg&w=1200&q=60");
+    background-size: cover;
+    background-position: center;
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+    z-index: 1;
+}
+
+/* brutalist shadow utilities */
+.shadow-brut {
+    box-shadow: 8px 8px 0 #111111;
+}
+.shadow-brut-sm {
+    box-shadow: 6px 6px 0 #111111;
+}
+.shadow-brut-lg {
+    box-shadow: 12px 12px 0 #111111;
+}
+
+.btn-brut {
+    font-family: "Azeret Mono", monospace;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    padding: 0.75rem 1.25rem;
+    background: #ffffff;
+    color: #111111;
+    border: 4px solid #111111;
+    box-shadow: 6px 6px 0 #111111;
+    transition:
+        transform 100ms linear,
+        box-shadow 100ms linear,
+        background-color 100ms linear;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.btn-brut:hover {
+    background: var(--yellow);
+}
+.btn-brut:active {
+    transform: translate(6px, 6px);
+    box-shadow: 0 0 0 #111111;
+}
+.btn-brut.is-primary {
+    background: #111111;
+    color: #ffffff;
+}
+.btn-brut.is-primary:hover {
+    background: var(--yellow);
+    color: #111111;
+}
+.btn-brut.is-red {
+    background: var(--red);
+    color: #ffffff;
+}
+.btn-brut.is-blue {
+    background: var(--blue);
+    color: #ffffff;
+}
+
+.input-brut {
+    border: 0;
+    border-bottom: 4px solid #111111;
+    background: transparent;
+    font-family: "Azeret Mono", monospace;
+    font-weight: 700;
+    font-size: 1.125rem;
+    padding: 0.5rem 0.25rem;
+    color: #111111;
+    width: 100%;
+    outline: none;
+    transition: background-color 120ms;
+}
+.input-brut:focus {
+    background: var(--yellow);
+}
+.input-brut::placeholder {
+    color: #555555;
+    opacity: 0.7;
+}
+
+/* Cell hover only on enabled */
+.cell-enabled {
+    cursor: pointer;
+}
+.cell-enabled:hover {
+    background: var(--yellow);
+}
+
+/* SVG mark draw animation */
+@keyframes drawStroke {
+    from {
+        stroke-dashoffset: var(--dash);
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+.mark-draw {
+    stroke-dasharray: var(--dash);
+    stroke-dashoffset: var(--dash);
+    animation: drawStroke 240ms cubic-bezier(0.6, 0, 0.4, 1) forwards;
+}
+
+/* win line */
+@keyframes drawLine {
+    from {
+        stroke-dashoffset: 600;
+    }
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+.win-line {
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    animation: drawLine 380ms cubic-bezier(0.6, 0, 0.4, 1) 80ms forwards;
+}
+
+/* shake for draw */
+@keyframes shake {
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+    20% {
+        transform: translateX(-8px);
+    }
+    40% {
+        transform: translateX(8px);
+    }
+    60% {
+        transform: translateX(-6px);
+    }
+    80% {
+        transform: translateX(6px);
+    }
+}
+.board-shake {
+    animation: shake 360ms ease-in-out;
+}
+
+@keyframes flashYellow {
+    0%,
+    100% {
+        background: #f4f4ec;
+    }
+    50% {
+        background: #ffcc00;
+    }
+}
+.flash-yellow {
+    animation: flashYellow 380ms ease-in-out 2;
+}
+
+/* winner pulse */
+@keyframes winPulse {
+    0%,
+    100% {
+        background: #111111;
+    }
+    50% {
+        background: #ffcc00;
+    }
+}
+.win-pulse {
+    animation: winPulse 520ms ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mark-draw,
+    .win-line,
+    .board-shake,
+    .flash-yellow,
+    .win-pulse {
+        animation: none !important;
+    }
+}
+
+/* scrollbar */
+.thin-scroll::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+.thin-scroll::-webkit-scrollbar-track {
+    background: transparent;
+}
+.thin-scroll::-webkit-scrollbar-thumb {
+    background: #111111;
+    border-radius: 0;
+}
